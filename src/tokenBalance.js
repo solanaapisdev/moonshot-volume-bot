@@ -6,13 +6,12 @@ const mintAddress = process.env.MINT;
 
 async function checkTokenBalance(wallet) {
     try {
-        const response = await fetch(balanceApiUrl, {
-            method: 'POST',
+        // Modify the fetch request to send a GET request with query parameters
+        const url = `${balanceApiUrl}?wallet=${wallet.publickey}&mint=${mintAddress}`;
+
+        const response = await fetch(url, {
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                wallet: wallet.publickey,
-                mint: mintAddress
-            }),
         });
 
         const data = await response.json();
