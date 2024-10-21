@@ -8,13 +8,12 @@ const solMintAddress = 'So11111111111111111111111111111111111111112'; // SOL min
 
 async function checkSolBalance(wallet) {
     try {
-        const response = await fetch(balanceApiUrl, {
-            method: 'POST',
+        // Modify the fetch request to send a GET request with query parameters
+        const url = `${balanceApiUrl}?wallet=${wallet.publickey}&mint=${solMintAddress}`;
+        
+        const response = await fetch(url, {
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                wallet: wallet.publickey,
-                mint: solMintAddress
-            }),
         });
 
         const data = await response.json();
